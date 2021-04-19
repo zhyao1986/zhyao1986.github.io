@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>ubuntu_wifi_config</title>
+    <link href="/2021/04/20/ubuntu-wifi-config/"/>
+    <url>/2021/04/20/ubuntu-wifi-config/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Auto-WIFI-connect-in-Ubuntu"><a href="#Auto-WIFI-connect-in-Ubuntu" class="headerlink" title="Auto WIFI connect in Ubuntu"></a>Auto WIFI connect in Ubuntu</h2><h3 id="Prepare"><a href="#Prepare" class="headerlink" title="Prepare"></a>Prepare</h3><p>Use <code>iwconfig</code> to get name of wireless network interface adapter<br><code>iwconfig</code></p><ul><li>If the status of wireless network interface adapter is down, use <code>ifconfig</code> to enable<br><code>sudo ifconfig wlan0 up</code></li><li>then scan network<br><code>sudo iwlist wlan0 scan | grep ESSID</code><h3 id="Connect-WIFI"><a href="#Connect-WIFI" class="headerlink" title="Connect WIFI"></a>Connect WIFI</h3></li><li>Install wpa_supplicant<br><code>sudo apt install -y wpasupplicant</code></li><li>Creat config file <code>wpa_supplicant.conf</code> in /etc/wpasupplicant/, content as below<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">ctrl_interface</span>=/var/run/wpa_supplicant<br><span class="hljs-attribute">ap_scan</span>=1<br>network=&#123;<br>    <span class="hljs-attribute">ssid</span>=<span class="hljs-string">&quot;401-ZG&quot;</span><br>    <span class="hljs-attribute">psk</span>=<span class="hljs-string">&quot;19860527&quot;</span><br>    <span class="hljs-attribute">priority</span>=1<br>&#125;<br>network=&#123;<br>    <span class="hljs-attribute">ssid</span>=<span class="hljs-string">&quot;Yao&quot;</span><br>    <span class="hljs-attribute">psk</span>=<span class="hljs-string">&quot;qwer1234&quot;</span><br>    <span class="hljs-attribute">priority</span>=2<br>&#125;<br></code></pre></td></tr></table></figure></li><li>Connect WIFI<br><code>sudo wpa_supplicant -B -c /etc/wpasupplicant/wpa_supplicant.conf -i wlan0</code></li><li>Get ip addresss<br><code>sudo dhclient wlan0</code><h3 id="Create-auto-start-service"><a href="#Create-auto-start-service" class="headerlink" title="Create auto-start service"></a>Create auto-start service</h3></li><li>Create service file named <code>wpa_supplicant.service</code> in <code>/etc/systemd/system/</code>, content as below<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Unit]</span><br><span class="hljs-attr">Description</span>=WPA supplicant<br><span class="hljs-attr">Before</span>=network.target<br><span class="hljs-attr">After</span>=dbus.service<br><span class="hljs-attr">Wants</span>=network.target<br><span class="hljs-attr">IgnoreOnIsolate</span>=<span class="hljs-literal">true</span><br><br><span class="hljs-section">[Service]</span><br><span class="hljs-attr">Type</span>=dbus<br><span class="hljs-attr">BusName</span>=fi.w1.wpa_supplicant1<br><span class="hljs-attr">ExecStart</span>=/sbin/wpa_supplicant -u -s -c /etc/wpasupplicant/wpa_supplicant.conf -i wlan0<br><br><span class="hljs-section">[Install]</span><br><span class="hljs-attr">WantedBy</span>=multi-user.target<br><span class="hljs-attr">Alias</span>=dbus-fi.w1.wpa_supplicant1.service<br></code></pre></td></tr></table></figure></li><li>Enable the service<br><code>sudo systemctl enable wpa_supplicant.service</code><h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><a href="https://cloud-atlas.readthedocs.io/zh_CN/latest/linux/ubuntu_linux/network/wpa_supplicant.html">https://cloud-atlas.readthedocs.io/zh_CN/latest/linux/ubuntu_linux/network/wpa_supplicant.html</a></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>STARS</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>ubuntu</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>hexo-guide</title>
     <link href="/2021/03/31/hexo-guide/"/>
     <url>/2021/03/31/hexo-guide/</url>
