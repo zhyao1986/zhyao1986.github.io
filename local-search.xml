@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>Enable docker autostart in WSL</title>
+    <link href="/2021/04/21/wsl-autostart-docker/"/>
+    <url>/2021/04/21/wsl-autostart-docker/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Enable-docker-autostart-in-WSL"><a href="#Enable-docker-autostart-in-WSL" class="headerlink" title="Enable docker autostart in WSL"></a>Enable docker autostart in WSL</h2><h3 id="WSL"><a href="#WSL" class="headerlink" title="WSL"></a>WSL</h3><ul><li>Create shell script “/etc/init-docker.sh” as below<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">start docker service</span><br>sudo service docker start<br></code></pre></td></tr></table></figure></li><li>Set execute permission to script<br><code>sudo chmod +x /etc/init-docker.sh</code><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3></li><li>Go to “startup” folder with execute “shell:startup” in “Run”/“Win + R”</li><li>Create file “start.vbs” as below<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vb"><span class="hljs-keyword">Set</span> ws = WScript.CreateObject(<span class="hljs-string">&quot;WScript.Shell&quot;</span>)<br>ws.run <span class="hljs-string">&quot;wsl -d ubuntu -u root /etc/init-docker.sh&quot;</span>, vbhide<br></code></pre></td></tr></table></figure></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>DevOps</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>ubuntu</tag>
+      
+      <tag>wsl</tag>
+      
+      <tag>docker</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Auto WIFI connect in Ubuntu</title>
     <link href="/2021/04/20/ubuntu-wifi-config/"/>
     <url>/2021/04/20/ubuntu-wifi-config/</url>
